@@ -1,0 +1,137 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container {
+  text-align: center;
+  flex-grow: 1;
+  padding-bottom: 30px;
+}
+.controls button {
+  font-size: larger;
+  padding: 10px;
+  border-radius: 20rem;
+  margin: 5px;
+  font-weight: 700;
+}
+.controls button:hover,
+button:active {
+  cursor: pointer;
+  zoom: 1.05;
+  border: 4px solid black;
+}
+.container h1 {
+  font-size: xx-large;
+  font-weight: bolder;
+  text-decoration: underline;
+}
+#gameSetup {
+  display: none;
+}
+#gameSetup button {
+  font-size: larger;
+  padding: 10px;
+  border-radius: 20rem;
+  margin: 5px;
+  font-weight: 700;
+  border: 4px solid orange;
+  box-shadow: 10px 10px 5px orange;
+}
+#gameSetup button:hover,
+button:active {
+  cursor: pointer;
+  zoom: 1.05;
+  border: 4px solid orange;
+}
+button img {
+  width: 200px;
+}
+#addingPlayers {
+  margin: 15px;
+}
+#addingPlayers input {
+  padding: 10px 25px 10px 25px;
+  width: 20%;
+  border: 2px solid black;
+  font-size: large;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 25px;
+}
+#addingPlayers input:hover,
+input:active {
+  zoom: 1.05;
+  border: 4px solid black;
+}
+.soloGame,
+.teamGame,
+#addingPlayers {
+  display: none;
+}
+.vs {
+  width: 200px;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 10px rgb(67, 36, 1);
+}
+#addingPlayers button {
+  font-size: larger;
+  padding: 10px;
+  border-radius: 20rem;
+  margin: 15px;
+  font-weight: 700;
+}
+#addingPlayers button:hover,
+button:active {
+  cursor: pointer;
+  zoom: 1.05;
+  border: 4px solid red;
+}
+.teams h3 {
+  font-size: larger;
+  font-weight: bolder;
+}
+.start {
+  margin: 20px;
+  color: rgb(205, 198, 15);
+  background-color: black;
+  border: 4px solid red;
+  box-shadow: 10px 10px 10px rgb(146, 8, 8);
+}
+.closeSession {
+  display: none;
+}
+.closeSession img {
+  margin: 20px;
+  width: 200px;
+  border-radius: 200px;
+  box-shadow: 10px 10px 10px rgb(146, 8, 8);
+}
+.closeSession img:hover,
+img:active {
+  cursor: pointer;
+  zoom: 1.05;
+  box-shadow: 20px 20px 20px rgb(146, 8, 8);
+}
+footer {
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(125, 125, 125, 0.4);
+  min-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+footer button {
+  margin-top: 10px;
+  padding: 5px 10px 5px 10px;
+  font-size: 105%;
+  font-weight: bold;
+  border-radius: 20rem;
+}
+footer p {
+  font-weight: bolder;
+  opacity: 50%;
+}

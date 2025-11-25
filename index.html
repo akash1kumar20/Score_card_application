@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scorer</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>ScoreKeeper</h1>
+        <div class="controls">
+          <button id="newGame" onclick="newGame()">New Game</button>
+          <button id="historyBtn">History</button>
+        </div>
+      </header>
+
+      <section id="gameSetup">
+        <h2>Select Game Type</h2>
+        <button onclick="soloPlayerGame()">
+          <img
+            src="./Assests/—Pngtree—battle player 1 vs 2_5982389.png"
+            alt="One Vs One"
+          />
+        </button>
+        <button onclick="teamGame()">
+          <img
+            src="./Assests/—Pngtree—team 1 vs 2 sports_6010892.png"
+            alt="Team Vs Team"
+          />
+        </button>
+      </section>
+      <section class="closeSession">
+        <img src="./Assests/close.png" alt="Close" onclick="closeSession()" />
+      </section>
+      <section id="addingPlayers">
+        <!-- for one vs one  -->
+        <div class="soloGame">
+          <input
+            type="text"
+            required
+            minlength="3"
+            placeholder="Please add first player name"
+          />
+          <div class="vsImage">
+            <img src="./Assests/generated-image.png" alt="VS" class="vs" />
+          </div>
+          <input
+            type="text"
+            required
+            minlength="3"
+            placeholder="Please add second player name"
+          />
+        </div>
+        <!-- for team vs team game  -->
+        <div class="teamGame">
+          <div class="teams">
+            <h3>Team One</h3>
+            <input
+              type="text"
+              required
+              minlength="3"
+              placeholder="Please add first player name"
+            />
+            <input
+              type="text"
+              required
+              minlength="3"
+              placeholder="Please add second player name"
+            />
+          </div>
+          <div class="vsImage">
+            <img src="./Assests/generated-image.png" alt="VS" class="vs" />
+          </div>
+          <div class="teams">
+            <h3>Team Two</h3>
+            <input
+              type="text"
+              required
+              minlength="3"
+              placeholder="Please add first player name"
+            />
+            <input
+              type="text"
+              required
+              minlength="3"
+              placeholder="Please add second player name"
+            />
+          </div>
+        </div>
+        <button class="start">Start Game</button>
+      </section>
+      <section id="scoreboard" hidden>
+        <div class="player" data-idx="0">
+          <h2 id="p0Name">Player A</h2>
+          <div class="score" id="p0Score">0</div>
+          <button class="add" data-player="0">+1</button>
+        </div>
+        <div class="player" data-idx="1">
+          <h2 id="p1Name">Player B</h2>
+          <div class="score" id="p1Score">0</div>
+          <button class="add" data-player="1">+1</button>
+        </div>
+
+        <div class="scoreControls">
+          <button id="undoBtn">Undo</button>
+          <button id="endBtn">End Game</button>
+        </div>
+      </section>
+
+      <div id="winnerModal" class="modal" hidden></div>
+    </main>
+    <footer>
+      <button id="themeToggle" onclick="toggleTheme()">
+        <span class="themeText">Switch to Dark Mode</span>
+      </button>
+      <p>&copy; Akash Kumar</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
