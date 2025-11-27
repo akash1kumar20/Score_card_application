@@ -105,50 +105,58 @@
         <button class="start" onclick="addPlayersName()">Start Game</button>
       </section>
       <section id="scoreboard" hidden>
-        <p class="gameIDShow">Game ID: <span id="gameIDDisplay"></span></p>
-        <p>
-          In a
-          <span id="pointsGame"></span>-points game, the
-          <span id="pointsGameType"></span> needs
-          <span id="pointsToWin"></span> points to win.
-        </p>
-        <div class="player playerA">
-          <h2>
-            <span id="addTypeOne"></span> A -
-            <span id="addNameOne"></span>
-          </h2>
-          <button
-            class="add"
-            id="addPointToA"
-            value="sideAPoints"
-            onclick="scoreCounter(event)"
-          >
-            +1
-          </button>
+        <div id="scoreDetails">
+          <p class="gameIDShow">Game ID: <span id="gameIDDisplay"></span></p>
+          <p>
+            In a
+            <span id="pointsGame"></span>-points game, the
+            <span id="pointsGameType"></span> needs
+            <span id="pointsToWin"></span> points to win.
+          </p>
+          <div class="player playerA">
+            <h2>
+              <span id="addTypeOne"></span> A -
+              <span id="addNameOne"></span>
+            </h2>
+            <button
+              class="add"
+              id="addPointToA"
+              value="sideAPoints"
+              onclick="scoreCounter(event)"
+            >
+              +1
+            </button>
+          </div>
+          <p class="scoreVS">V/S</p>
+          <div class="player playerB">
+            <h2>
+              <span id="addTypeTwo">Team/Player</span> B -
+              <span id="addNameTwo">Name</span>
+            </h2>
+            <button
+              class="add"
+              id="addPointToB"
+              value="sideBPoints"
+              onclick="scoreCounter(event)"
+            >
+              +1
+            </button>
+          </div>
+          <div class="infoElements">
+            <button class="winning">Winning</button>
+            <button class="scoreLevel">Score Level</button>
+            <button class="losing">Losing</button>
+          </div>
+          <div class="scoreControls">
+            <button id="undoBtn" onclick="undoLastPoint()">Undo</button>
+            <button id="endBtn">End Game</button>
+          </div>
         </div>
-        <p class="scoreVS">V/S</p>
-        <div class="player playerB">
-          <h2>
-            <span id="addTypeTwo">Team/Player</span> B -
-            <span id="addNameTwo">Name</span>
-          </h2>
-          <button
-            class="add"
-            id="addPointToB"
-            value="sideBPoints"
-            onclick="scoreCounter(event)"
-          >
-            +1
-          </button>
-        </div>
-        <div class="infoElements">
-          <button class="winning">Winning</button>
-          <button class="scoreLevel">Score Level</button>
-          <button class="losing">Losing</button>
-        </div>
-        <div class="scoreControls">
-          <button id="undoBtn">Undo</button>
-          <button id="endBtn">End Game</button>
+        <div id="winner_section" hidden>
+          <img src="./Assests/Victory.png" />
+          <p><span id="winner_name"></span> won the game!</p>
+          <img src="./Assests/crackers.png" />
+          <p><button onclick="startAnotherGame()">New Game</button></p>
         </div>
       </section>
 

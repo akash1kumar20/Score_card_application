@@ -217,3 +217,65 @@ footer p {
 .losing {
   background-color: rgb(206, 32, 41);
 }
+#winner_section {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#winner_section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#winner_section img {
+  width: 400px;
+  animation: dropIn 0.8s ease-out forwards;
+}
+
+@keyframes dropIn {
+  0% {
+    transform: translateY(-80px) rotate(-6deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(10px) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+#winner_section p {
+  font-size: larger;
+  font-weight: bolder;
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+@keyframes fadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+#winner_section button {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  border-radius: 40rem;
+  color: white;
+  background-color: black;
+  padding: 15px;
+  font-size: large;
+  border: 4px solid white;
+}
+#winner_section button:hover {
+  cursor: pointer;
+  zoom: 1.05;
+}

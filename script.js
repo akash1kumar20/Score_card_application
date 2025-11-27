@@ -62,9 +62,10 @@ function closeSession() {
 }
 
 //adding players name and points
+let points = null;
 function addPlayersName() {
   generateCode();
-  let points = document.querySelector(".points").value || 10; //defaultValue = 10, if user doesn't provide value.
+  points = Number(document.querySelector(".points").value) || 10; //defaultValue = 10, if user doesn't provide value.
   if (gameType === "soloGames") {
     let playerA = valueReader("soloOne");
     let playerB = valueReader("soloTwo");
@@ -85,28 +86,32 @@ function addPlayersName() {
     innerHTML("#pointsGameType", "Team");
   }
   innerHTML("#pointsGame", points);
-  innerHTML("#pointsToWin", Number(points) + 1);
+  innerHTML("#pointsToWin", points + 1);
   innerHTML("#gameIDDisplay", gameID);
   displayBlock("#scoreboard");
   hideBlock("#addingPlayers");
   hideBlock(".closeSession");
 }
 
-//score counter
+//live scoring
 let lastPointOfA = 0;
 let lastPointOfB = 0;
+let lastPointScoreBy = [];
 function scoreCounter(e) {
   let pointScoreBy = e.target.value;
   if (pointScoreBy === "sideBPoints") {
-    lastPointOfB = lastPointOfB + 1;
+    lastPointOfB++;
+    lastPointScoreBy.push({ scorer: "B" });
     innerHTML("#addPointToB", lastPointOfB);
   } else {
-    lastPointOfA = lastPointOfA + 1;
+    lastPointOfA++;
+    lastPointScoreBy.push({ scorer: "A" });
     innerHTML("#addPointToA", lastPointOfA);
   }
   updateLead(lastPointOfA, lastPointOfB);
+  scoreRules(lastPointOfA, lastPointOfB);
 }
-//style css update as per the score
+//css update as per the score
 const pA = document.querySelector(".playerA");
 const pB = document.querySelector(".playerB");
 
@@ -129,6 +134,50 @@ function updateLead(a, b) {
     pA.classList.add("player--tie");
     pB.classList.add("player--tie");
   }
+}
+
+//score rules
+function scoreRules(lastPointOfA, lastPointOfB) {
+  let pointToWin = points + 1;
+  let winner = "";
+  if (lastPointOfA === pointToWin || lastPointOfB === pointToWin) {
+    hideBlock("#scoreDetails");
+    displayBlock("#winner_section");
+    document.getElementById("winner_section").classList.add("show");
+
+    const cmp = Math.sign(lastPointOfA - lastPointOfB);
+
+    if (cmp === 1) {
+      winner = "Side A";
+    } else if (cmp === -1) {
+      winner = "Side B";
+    }
+    innerHTML("#winner_name", winner);
+  }
+}
+
+//to start a new game again
+function startAnotherGame() {
+  displayBlock(".controls");
+  hideBlock("#scoreboard");
+}
+
+//undoPoint
+function undoLastPoint() {
+  if (lastPointScoreBy.length === 0) return;
+
+  const lastScorer = lastPointScoreBy.pop();
+
+  if (lastScorer.scorer === "A") {
+    lastPointOfA--;
+    innerHTML("#addPointToA", lastPointOfA);
+  } else {
+    lastPointOfB--;
+    innerHTML("#addPointToB", lastPointOfB);
+  }
+
+  updateLead(lastPointOfA, lastPointOfB);
+  scoreRules(lastPointOfA, lastPointOfB);
 }
 
 //toggleTheme
