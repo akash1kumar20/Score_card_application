@@ -41,7 +41,8 @@
             type="text"
             required
             minlength="3"
-            placeholder="Please add first player name"
+            placeholder="Please add the first player's name."
+            id="soloOne"
           />
           <div class="vsImage">
             <img src="./Assests/generated-image.png" alt="VS" class="vs" />
@@ -50,7 +51,8 @@
             type="text"
             required
             minlength="3"
-            placeholder="Please add second player name"
+            placeholder="Please add the second player's name."
+            id="soloTwo"
           />
         </div>
         <!-- for team vs team game  -->
@@ -61,13 +63,15 @@
               type="text"
               required
               minlength="3"
-              placeholder="Please add first player name"
+              placeholder="Please add the first player's name."
+              id="teamOneFirst"
             />
             <input
               type="text"
               required
               minlength="3"
-              placeholder="Please add second player name"
+              placeholder="Please add the second player's name."
+              id="teamOneSecond"
             />
           </div>
           <div class="vsImage">
@@ -79,30 +83,69 @@
               type="text"
               required
               minlength="3"
-              placeholder="Please add first player name"
+              placeholder="Please add the first player's name."
+              id="teamTwoFirst"
             />
             <input
               type="text"
               required
               minlength="3"
-              placeholder="Please add second player name"
+              placeholder="Please add the second player's name."
+              id="teamTwoSecond"
             />
           </div>
         </div>
-        <button class="start">Start Game</button>
+        <input
+          type="number"
+          required
+          placeholder="Please add the number of points"
+          class="points"
+        />
+        <br />
+        <button class="start" onclick="addPlayersName()">Start Game</button>
       </section>
       <section id="scoreboard" hidden>
-        <div class="player" data-idx="0">
-          <h2 id="p0Name">Player A</h2>
-          <div class="score" id="p0Score">0</div>
-          <button class="add" data-player="0">+1</button>
+        <p class="gameIDShow">Game ID: <span id="gameIDDisplay"></span></p>
+        <p>
+          In a
+          <span id="pointsGame"></span>-points game, the
+          <span id="pointsGameType"></span> needs
+          <span id="pointsToWin"></span> points to win.
+        </p>
+        <div class="player playerA">
+          <h2>
+            <span id="addTypeOne"></span> A -
+            <span id="addNameOne"></span>
+          </h2>
+          <button
+            class="add"
+            id="addPointToA"
+            value="sideAPoints"
+            onclick="scoreCounter(event)"
+          >
+            +1
+          </button>
         </div>
-        <div class="player" data-idx="1">
-          <h2 id="p1Name">Player B</h2>
-          <div class="score" id="p1Score">0</div>
-          <button class="add" data-player="1">+1</button>
+        <p class="scoreVS">V/S</p>
+        <div class="player playerB">
+          <h2>
+            <span id="addTypeTwo">Team/Player</span> B -
+            <span id="addNameTwo">Name</span>
+          </h2>
+          <button
+            class="add"
+            id="addPointToB"
+            value="sideBPoints"
+            onclick="scoreCounter(event)"
+          >
+            +1
+          </button>
         </div>
-
+        <div class="infoElements">
+          <button class="winning">Winning</button>
+          <button class="scoreLevel">Score Level</button>
+          <button class="losing">Losing</button>
+        </div>
         <div class="scoreControls">
           <button id="undoBtn">Undo</button>
           <button id="endBtn">End Game</button>
