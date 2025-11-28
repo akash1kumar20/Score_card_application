@@ -109,7 +109,7 @@ function scoreCounter(e) {
     innerHTML("#addPointToA", lastPointOfA);
   }
   updateLead(lastPointOfA, lastPointOfB);
-  scoreRules(lastPointOfA, lastPointOfB);
+  scoreRules();
 }
 //css update as per the score
 const pA = document.querySelector(".playerA");
@@ -136,9 +136,17 @@ function updateLead(a, b) {
   }
 }
 
-//score rules
-function scoreRules(lastPointOfA, lastPointOfB) {
-  let pointToWin = points + 1;
+//score rules and end game now
+let endNowPoints = 0;
+let endGame = false;
+function endGameNow() {
+  endNowPoints = Math.max(lastPointOfA, lastPointOfB);
+  endGame = true;
+  scoreRules();
+}
+
+function scoreRules() {
+  let pointToWin = endGame === true ? endNowPoints : points + 1;
   let winner = "";
   if (lastPointOfA === pointToWin || lastPointOfB === pointToWin) {
     hideBlock("#scoreDetails");
