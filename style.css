@@ -279,3 +279,90 @@ footer p {
   cursor: pointer;
   zoom: 1.05;
 }
+
+/* Responsive design */
+/* === Responsive Mobile-First Styles (screen ≤ 768px) === */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 0;
+  }
+
+  .controls,
+  .scoreControls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .controls button,
+  .scoreControls button,
+  #gameSetup button,
+  #addingPlayers button,
+  #winner_section button,
+  footer button {
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+    margin: 10px;
+  }
+
+  #addingPlayers {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  #addingPlayers input {
+    width: 90%;
+    max-width: 300px;
+    margin: 5px;
+  }
+
+  .vs,
+  .closeSession img,
+  button img,
+  #winner_section img {
+    width: 90%;
+    max-width: 300px;
+    height: auto;
+  }
+
+  #scoreboard {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .gameIDShow {
+    text-align: center;
+  }
+
+  footer {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+  }
+
+  footer p {
+    font-size: small;
+  }
+
+  .player button {
+    font-size: x-large;
+    padding: 10px;
+    width: 100%;
+    max-width: 80px;
+  }
+
+  #winner_section p {
+    text-align: center;
+    font-size: medium;
+  }
+
+  #winner_section button {
+    width: 100%;
+    max-width: 320px;
+  }
+}

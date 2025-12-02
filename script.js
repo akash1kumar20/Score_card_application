@@ -159,6 +159,8 @@ function scoreRules() {
       winner = "Side A";
     } else if (cmp === -1) {
       winner = "Side B";
+    } else if (cmp === 0) {
+      winner = "Both side";
     }
     innerHTML("#winner_name", winner);
   }
@@ -168,6 +170,7 @@ function scoreRules() {
 function startAnotherGame() {
   displayBlock(".controls");
   hideBlock("#scoreboard");
+  location.reload();
 }
 
 //undoPoint
