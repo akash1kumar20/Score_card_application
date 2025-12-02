@@ -12,10 +12,12 @@
         <h1>ScoreKeeper</h1>
         <div class="controls">
           <button id="newGame" onclick="newGame()">New Game</button>
-          <button id="historyBtn">History</button>
+          <button id="historyBtn" onclick="displayHistory()">History</button>
         </div>
       </header>
-
+      <section id="history" hidden>
+        <p>Feature coming soon!</p>
+      </section>
       <section id="gameSetup">
         <h2>Select Game Type</h2>
         <button onclick="soloPlayerGame()">

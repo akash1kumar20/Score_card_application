@@ -191,6 +191,14 @@ function undoLastPoint() {
   scoreRules(lastPointOfA, lastPointOfB);
 }
 
+//history
+function displayHistory() {
+  displayBlock("#history");
+  setTimeout(() => {
+    hideBlock("#history");
+  }, 2500);
+}
+
 //toggleTheme
 let currentTheme = JSON.parse(localStorage.getItem("selectedTheme"));
 
