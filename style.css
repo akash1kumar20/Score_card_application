@@ -53,7 +53,7 @@ button img {
 }
 #addingPlayers input {
   padding: 10px 25px 10px 25px;
-  width: 20%;
+  min-width: 25%;
   border: 2px solid black;
   font-size: large;
   font-weight: 500;
@@ -330,8 +330,9 @@ footer p {
   }
 
   #scoreboard {
-    width: 90%;
-    padding: 1rem;
+    width: 80%;
+    padding: 10px;
+    margin-right: auto;
   }
 
   .gameIDShow {
