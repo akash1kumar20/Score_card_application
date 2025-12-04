@@ -71,7 +71,7 @@ function closeSession() {
 }
 
 // Add players & points
-let points = null;
+let points = null; // base "game points" user enters (e.g. 10)
 
 function addPlayersName() {
   generateCode(); // Generate a fresh game ID ONCE per game
@@ -100,9 +100,21 @@ function addPlayersName() {
     innerHTML("#pointsGameType", "Team");
   }
 
+  const baseTarget = points + 1; // e.g. 11 in a 10-point game
+
   innerHTML("#pointsGame", points);
-  innerHTML("#pointsToWin", points + 1);
+  innerHTML(
+    "#pointsToWin",
+    `${baseTarget} (win by 2 after ${points}-${points})`
+  );
   innerHTML("#gameIDDisplay", gameID);
+
+  // reset scores display for a fresh game
+  lastPointOfA = 0;
+  lastPointOfB = 0;
+  lastPointScoreBy = [];
+  refreshScoreDisplay();
+  updateLead(lastPointOfA, lastPointOfB);
 
   displayBlock("#scoreboard");
   hideBlock("#addingPlayers");
@@ -114,19 +126,43 @@ let lastPointOfA = 0;
 let lastPointOfB = 0;
 let lastPointScoreBy = []; // stack of { scorer: "A" | "B" }
 
+// Display logic: numbers before deuce, ADVANTAGE/DEUCE after both reach `points`
+function refreshScoreDisplay() {
+  const inAdvantagePhase =
+    points !== null && lastPointOfA >= points && lastPointOfB >= points; // both reached base points (e.g. 10–10 or beyond)
+
+  if (!inAdvantagePhase) {
+    // Normal phase: show numeric scores
+    innerHTML("#addPointToA", lastPointOfA);
+    innerHTML("#addPointToB", lastPointOfB);
+  } else {
+    // Advantage phase: no more numeric updating, only texts
+    if (lastPointOfA === lastPointOfB) {
+      // Deuce state
+      innerHTML("#addPointToA", "DEUCE");
+      innerHTML("#addPointToB", "DEUCE");
+    } else if (lastPointOfA > lastPointOfB) {
+      innerHTML("#addPointToA", "ADVANTAGE");
+      innerHTML("#addPointToB", "BEHIND");
+    } else {
+      innerHTML("#addPointToB", "ADVANTAGE");
+      innerHTML("#addPointToA", "BEHIND");
+    }
+  }
+}
+
 function scoreCounter(e) {
   const pointScoreBy = e.target.value;
 
   if (pointScoreBy === "sideBPoints") {
     lastPointOfB++;
     lastPointScoreBy.push({ scorer: "B" });
-    innerHTML("#addPointToB", lastPointOfB);
   } else {
     lastPointOfA++;
     lastPointScoreBy.push({ scorer: "A" });
-    innerHTML("#addPointToA", lastPointOfA);
   }
 
+  refreshScoreDisplay();
   updateLead(lastPointOfA, lastPointOfB);
   scoreRules();
 }
@@ -158,37 +194,71 @@ function updateLead(a, b) {
   }
 }
 
-// Score rules and End Game Now
-let endNowPoints = 0;
-let endGame = false;
+// Score rules + Advantage + End Game Now
+let endGame = false; // if true, force-end game using current scores
 
 function endGameNow() {
-  endNowPoints = Math.max(lastPointOfA, lastPointOfB);
-  endGame = true;
-  scoreRules();
+  const confirmation = confirm("Do you want to end the current game?");
+  if (confirmation) {
+    endGame = true;
+    scoreRules();
+  } else {
+    return;
+  }
+}
+
+function showWinner(winnerLabel) {
+  hideBlock("#scoreDetails");
+  displayBlock("#winner_section");
+  const ws = document.getElementById("winner_section");
+  if (ws) ws.classList.add("show");
+  innerHTML("#winner_name", winnerLabel);
 }
 
 function scoreRules() {
-  const pointToWin = endGame === true ? endNowPoints : points + 1;
-  let winner = "";
+  const a = lastPointOfA;
+  const b = lastPointOfB;
 
-  if (lastPointOfA === pointToWin || lastPointOfB === pointToWin) {
-    hideBlock("#scoreDetails");
-    displayBlock("#winner_section");
-    const ws = document.getElementById("winner_section");
-    if (ws) ws.classList.add("show"); //to show the winner section
-
-    const cmp = Math.sign(lastPointOfA - lastPointOfB);
-
-    if (cmp === 1) {
+  // If End Game button pressed: decide winner immediately
+  if (endGame) {
+    let winner = "";
+    if (a === b) {
+      winner = "Both sides";
+    } else if (a > b) {
       winner = "Side A";
-    } else if (cmp === -1) {
+    } else {
       winner = "Side B";
-    } else if (cmp === 0) {
-      winner = "Both side";
     }
+    showWinner(winner);
+    return;
+  }
 
-    innerHTML("#winner_name", winner);
+  const baseTarget = points + 1; // e.g. 11 in a 10-point game
+
+  // === Phase 1: before both reach `points` (pre-deuce) ===
+  // No one can win before someone reaches baseTarget
+  if (a < baseTarget && b < baseTarget) {
+    return;
+  }
+
+  // Someone just reached exactly baseTarget and the other is still below `points`
+  // → this keeps your original behaviour
+  if (a === baseTarget && b < points) {
+    showWinner("Side A");
+    return;
+  }
+  if (b === baseTarget && a < points) {
+    showWinner("Side B");
+    return;
+  }
+
+  // === Phase 2: advantage phase (both reached at least `points`) ===
+  if (a >= points && b >= points) {
+    // Deuce/advantage logic: win by 2
+    if (Math.abs(a - b) >= 2) {
+      const winner = a > b ? "Side A" : "Side B";
+      showWinner(winner);
+    }
   }
 }
 
@@ -196,7 +266,6 @@ function scoreRules() {
 function startAnotherGame() {
   displayBlock(".controls");
   hideBlock("#scoreboard");
-  // For now a full reload is simplest to reset all state
   location.reload();
 }
 
@@ -208,12 +277,11 @@ function undoLastPoint() {
 
   if (lastScorer.scorer === "A") {
     lastPointOfA = Math.max(0, lastPointOfA - 1);
-    innerHTML("#addPointToA", lastPointOfA);
   } else {
     lastPointOfB = Math.max(0, lastPointOfB - 1);
-    innerHTML("#addPointToB", lastPointOfB);
   }
 
+  refreshScoreDisplay();
   updateLead(lastPointOfA, lastPointOfB);
   scoreRules();
 }
