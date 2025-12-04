@@ -166,7 +166,6 @@ footer p {
 }
 .player {
   padding: 10px;
-  background-color: rgb(135, 82, 127);
   border-radius: 20px;
 }
 .player button {
@@ -351,10 +350,10 @@ footer p {
   }
 
   .player button {
-    font-size: x-large;
+    font-size: large;
     padding: 10px;
     width: 100%;
-    max-width: 80px;
+    max-width: fit-content;
   }
 
   #winner_section p {
